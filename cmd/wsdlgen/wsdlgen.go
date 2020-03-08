@@ -1,11 +1,11 @@
-package main // import "aqwari.net/xml/cmd/wsdlgen"
+package main
 
 import (
 	"log"
 	"os"
 
-	"aqwari.net/xml/wsdlgen"
-	"aqwari.net/xml/xsdgen"
+	"github.com/albenik/go-xml/wsdlgen"
+	"github.com/albenik/go-xml/xsdgen"
 )
 
 func main() {

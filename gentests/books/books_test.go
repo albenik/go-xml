@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"testing"
 
-	"aqwari.net/xml/xmltree"
+	"github.com/albenik/go-xml/xmltree"
 )
 
 func TestBooks(t *testing.T) {

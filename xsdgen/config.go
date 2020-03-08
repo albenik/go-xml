@@ -9,8 +9,8 @@ import (
 	"regexp"
 	"strings"
 
-	"aqwari.net/xml/internal/gen"
-	"aqwari.net/xml/xsd"
+	"github.com/albenik/go-xml/internal/gen"
+	"github.com/albenik/go-xml/xsd"
 )
 
 // A Config holds user-defined overrides and filters that are used when

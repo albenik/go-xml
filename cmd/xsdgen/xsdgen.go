@@ -4,7 +4,7 @@ import (
 	"log"
 	"os"
 
-	"aqwari.net/xml/xsdgen"
+	"github.com/albenik/go-xml/xsdgen"
 )
 
 func main() {

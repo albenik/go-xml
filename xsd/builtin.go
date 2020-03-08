@@ -7,7 +7,7 @@ import (
 	"unicode/utf8"
 )
 
-//go:generate stringer -type=Builtin
+//go:generate go run golang.org/x/tools/cmd/stringer -type=Builtin
 
 // A built-in represents one of the built-in xml schema types, as
 // defined in the W3C specification, "XML Schema Part 2: Datatypes".
