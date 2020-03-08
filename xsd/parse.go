@@ -57,7 +57,7 @@ func Imports(data []byte) ([]Ref, error) {
 	}
 
 	var schema []*xmltree.Element
-	if (root.Name == xml.Name{schemaNS, "schema"}) {
+	if (root.Name == xml.Name{Space: schemaNS, Local: "schema"}) {
 		schema = []*xmltree.Element{root}
 	} else {
 		schema = root.Search(schemaNS, "schema")
@@ -97,7 +97,7 @@ func Normalize(docs ...[]byte) ([]*xmltree.Element, error) {
 		if err != nil {
 			return nil, err
 		}
-		if (root.Name == xml.Name{schemaNS, "schema"}) {
+		if (root.Name == xml.Name{Space: schemaNS, Local: "schema"}) {
 			result = append(result, root)
 		} else {
 			result = append(result, root.Search(schemaNS, "schema")...)
@@ -177,7 +177,7 @@ func parseType(name xml.Name) Type {
 }
 
 func anonTypeName(n int, ns string) xml.Name {
-	return xml.Name{ns, fmt.Sprintf("_anon%d", n)}
+	return xml.Name{Space: ns, Local: fmt.Sprintf("_anon%d", n)}
 }
 
 /* Convert
@@ -380,7 +380,7 @@ func deref(ref, real *xmltree.Element) *xmltree.Element {
 	// Some attributes can contain a qname, and must be converted to use the
 	// xmlns prefixes in ref's scope.
 	hasQName := map[xml.Name]bool{
-		xml.Name{"", "type"}: true,
+		xml.Name{Local: "type"}: true,
 	}
 	for i, attr := range el.StartElement.Attr {
 		if hasQName[attr.Name] {
@@ -398,7 +398,7 @@ func deref(ref, real *xmltree.Element) *xmltree.Element {
 	// Attributes added to the reference overwrite attributes in the
 	// referenced element.
 	for _, attr := range ref.StartElement.Attr {
-		if (attr.Name != xml.Name{"", "ref"}) {
+		if (attr.Name != xml.Name{Local: "ref"}) {
 			el.SetAttr(attr.Name.Space, attr.Name.Local, attr.Value)
 		}
 	}
@@ -471,7 +471,7 @@ Loop:
 
 func (s *Schema) addElementTypeAliases(root *xmltree.Element, types map[xml.Name]Type) error {
 	for _, el := range root.Children {
-		if (el.Name != xml.Name{schemaNS, "element"}) {
+		if (el.Name != xml.Name{Space: schemaNS, Local: "element"}) {
 			continue
 		}
 		name := el.ResolveDefault(el.Attr("", "name"), s.TargetNS)
@@ -558,7 +558,7 @@ func (s *Schema) parseTypes(root *xmltree.Element) (err error) {
 		t := s.parseSimpleType(el)
 		s.Types[t.Name] = t
 	}
-	s.Types[xml.Name{tns, "_self"}] = s.parseSelfType(root)
+	s.Types[xml.Name{Space: tns, Local: "_self"}] = s.parseSelfType(root)
 	return err
 }
 
@@ -567,7 +567,7 @@ func (s *Schema) parseSelfType(root *xmltree.Element) *ComplexType {
 	self.Content = nil
 	self.Children = nil
 	for _, el := range root.Children {
-		if (el.Name == xml.Name{schemaNS, "element"}) {
+		if (el.Name == xml.Name{Space: schemaNS, Local: "element"}) {
 			self.Children = append(self.Children, el)
 		}
 	}

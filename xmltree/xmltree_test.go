@@ -196,7 +196,7 @@ func TestNSResolution(t *testing.T) {
 	}
 
 	defaultns := root.SearchFunc(func(el *Element) bool {
-		if (el.Name != xml.Name{"http://schemas.xmlsoap.org/wsdl/", "binding"}) {
+		if (el.Name != xml.Name{Space: "http://schemas.xmlsoap.org/wsdl/", Local: "binding"}) {
 			return false
 		}
 		return el.Attr("", "name") == "wseDocReciboSoap12"

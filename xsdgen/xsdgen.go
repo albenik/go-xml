@@ -82,7 +82,7 @@ type Code struct {
 // DocType retrieves the complexType for the provided target
 // namespace.
 func (c *Code) DocType(targetNS string) (*xsd.ComplexType, bool) {
-	key := xml.Name{targetNS, "_self"}
+	key := xml.Name{Space: targetNS, Local: "_self"}
 	doc, ok := c.types[key].(*xsd.ComplexType)
 	return doc, ok
 }

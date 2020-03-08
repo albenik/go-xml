@@ -505,7 +505,7 @@ func (cfg *Config) parseSOAPArrayType(s xsd.Schema, t xsd.Type) xsd.Type {
 			continue
 		}
 		for _, a := range v.Attr {
-			if (a.Name != xml.Name{wsdl, "arrayType"}) {
+			if (a.Name != xml.Name{Space: wsdl, Local: "arrayType"}) {
 				continue
 			}
 			itemType = v.Resolve(a.Value)
@@ -754,7 +754,7 @@ func (cfg *Config) soapArrayToSlice(s spec) spec {
 	}
 	cfg.debugf("flattening single-element slice struct type %s to []%v", s.name, slice.Elt)
 	tag := gen.TagKey(str.Fields.List[0], "xml")
-	xmltag := xml.Name{"", ",any"}
+	xmltag := xml.Name{Local: ",any"}
 
 	if tag != "" {
 		parts := strings.Split(tag, ",")

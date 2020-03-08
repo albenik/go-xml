@@ -306,7 +306,7 @@ func (p *printer) opArgs(addr, method string, op wsdl.Operation, input, output w
 			Name:       strings.Title(part.Name),
 			Type:       typ,
 			PublicType: exposeType(typ),
-			XMLName:    xml.Name{p.wsdl.TargetNS, part.Name},
+			XMLName:    xml.Name{Space: p.wsdl.TargetNS, Local: part.Name},
 			InputArg:   vname,
 		})
 	}
@@ -328,7 +328,7 @@ func (p *printer) opArgs(addr, method string, op wsdl.Operation, input, output w
 		args.OutputFields = append(args.OutputFields, field{
 			Name:    strings.Title(part.Name),
 			Type:    typ,
-			XMLName: xml.Name{p.wsdl.TargetNS, part.Name},
+			XMLName: xml.Name{Space: p.wsdl.TargetNS, Local: part.Name},
 		})
 	}
 	if len(args.output) > p.maxReturns {

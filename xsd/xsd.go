@@ -265,7 +265,7 @@ Loop:
 		case xml.EndElement:
 			break Loop
 		case xml.StartElement:
-			if (tok.Name != xml.Name{schemaNS, "documentation"}) {
+			if (tok.Name != xml.Name{Space: schemaNS, Local: "documentation"}) {
 				if err := d.Skip(); err != nil {
 					return err
 				}
@@ -296,9 +296,9 @@ func XMLName(t Type) xml.Name {
 		return t.Name()
 	case linkedType:
 		return xml.Name(t)
+	default:
+		panic(fmt.Sprintf("xsd: unexpected xsd.Type %[1]T %[1]v passed to XMLName", t))
 	}
-	panic(fmt.Sprintf("xsd: unexpected xsd.Type %[1]T %[1]v passed to XMLName", t))
-	return xml.Name{}
 }
 
 // Base returns the base type that a Type is derived from.
